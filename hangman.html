@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Game</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f9f9f9; text-align: center; }
+        #hangman-container { margin: 40px auto; max-width: 400px; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px #ccc; }
+        #word { font-size: 2em; letter-spacing: 0.3em; margin: 20px 0; }
+        #letters button { margin: 3px; padding: 10px 15px; font-size: 1em; border-radius: 5px; border: 1px solid #aaa; background: #eee; cursor: pointer; }
+        #letters button:disabled { background: #ddd; color: #aaa; cursor: not-allowed; }
+        #message { font-size: 1.2em; margin: 15px 0; color: #d9534f; }
+        #hangman-drawing { height: 180px; margin: 0 auto 20px; display: block; }
+        #reset { margin-top: 20px; padding: 10px 20px; font-size: 1em; border-radius: 5px; border: none; background: #5cb85c; color: #fff; cursor: pointer; }
+        #reset:hover { background: #449d44; }
+    </style>
+</head>
+<body>
+    <div id="hangman-container">
+        <svg id="hangman-drawing" width="200" height="180"></svg>
+        <div id="word"></div>
+        <div id="letters"></div>
+        <div id="message"></div>
+        <button id="reset">Restart Game</button>
+    </div>
+    <script>
+        const words = ["elephant", "giraffe", "chicken", "rabbit", "donkey", "sheep", "goat", "horse", "pig", "cow", "duck", "llama", "alpaca", "pony", "dog", "cat"];
+        let selectedWord, guessedLetters, wrongGuesses, maxWrong = 6;
+
+        function pickWord() {
+            return words[Math.floor(Math.random() * words.length)].toUpperCase();
+        }
+
+        function drawHangman(stage) {
+            const svg = document.getElementById('hangman-drawing');
+            svg.innerHTML = '';
+            // Gallows
+            svg.innerHTML += '<line x1="20" y1="170" x2="180" y2="170" stroke="#333" stroke-width="4" />';
+            svg.innerHTML += '<line x1="50" y1="170" x2="50" y2="20" stroke="#333" stroke-width="4" />';
+            svg.innerHTML += '<line x1="50" y1="20" x2="130" y2="20" stroke="#333" stroke-width="4" />';
+            svg.innerHTML += '<line x1="130" y1="20" x2="130" y2="40" stroke="#333" stroke-width="4" />';
+            if(stage > 0) svg.innerHTML += '<circle cx="130" cy="55" r="15" stroke="#333" stroke-width="4" fill="none" />'; // Head
+            if(stage > 1) svg.innerHTML += '<line x1="130" y1="70" x2="130" y2="110" stroke="#333" stroke-width="4" />'; // Body
+            if(stage > 2) svg.innerHTML += '<line x1="130" y1="80" x2="110" y2="100" stroke="#333" stroke-width="4" />'; // Left Arm
+            if(stage > 3) svg.innerHTML += '<line x1="130" y1="80" x2="150" y2="100" stroke="#333" stroke-width="4" />'; // Right Arm
+            if(stage > 4) svg.innerHTML += '<line x1="130" y1="110" x2="115" y2="140" stroke="#333" stroke-width="4" />'; // Left Leg
+            if(stage > 5) svg.innerHTML += '<line x1="130" y1="110" x2="145" y2="140" stroke="#333" stroke-width="4" />'; // Right Leg
+        }
+
+        function updateWordDisplay() {
+            const display = selectedWord.split('').map(l => guessedLetters.includes(l) ? l : '_').join(' ');
+            document.getElementById('word').textContent = display;
+        }
+
+        function updateLetters() {
+            const lettersDiv = document.getElementById('letters');
+            lettersDiv.innerHTML = '';
+            for(let i=65; i<=90; i++) {
+                const letter = String.fromCharCode(i);
+                const btn = document.createElement('button');
+                btn.textContent = letter;
+                btn.disabled = guessedLetters.includes(letter) || wrongGuesses.includes(letter);
+                btn.onclick = () => guessLetter(letter);
+                lettersDiv.appendChild(btn);
+            }
+        }
+
+        function guessLetter(letter) {
+            if(selectedWord.includes(letter)) {
+                guessedLetters.push(letter);
+            } else {
+                wrongGuesses.push(letter);
+            }
+            drawHangman(wrongGuesses.length);
+            updateWordDisplay();
+            updateLetters();
+            checkGameStatus();
+        }
+
+        function checkGameStatus() {
+            const messageDiv = document.getElementById('message');
+            if(wrongGuesses.length >= maxWrong) {
+                messageDiv.textContent = `Game Over! The word was: ${selectedWord}`;
+                disableAllLetters();
+            } else if(selectedWord.split('').every(l => guessedLetters.includes(l))) {
+                messageDiv.textContent = 'Congratulations! You won!';
+                disableAllLetters();
+            } else {
+                messageDiv.textContent = '';
+            }
+        }
+
+        function disableAllLetters() {
+            document.querySelectorAll('#letters button').forEach(btn => btn.disabled = true);
+        }
+
+        function resetGame() {
+            selectedWord = pickWord();
+            guessedLetters = [];
+            wrongGuesses = [];
+            drawHangman(0);
+            updateWordDisplay();
+            updateLetters();
+            document.getElementById('message').textContent = '';
+        }
+
+        document.getElementById('reset').onclick = resetGame;
+        resetGame();
+    </script>
+</body>
+</html>
