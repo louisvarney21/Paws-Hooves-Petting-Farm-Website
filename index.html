@@ -1,1 +1,748 @@
-<p> Hello this is a test</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paws & Hooves Petting Farm</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal-dark:  #073d52;
+    --teal-mid:   #0d5570;
+    --teal-light: #1a7a9e;
+    --teal-glow:  #2a9fc7;
+    --mint:       #B8E8C8;
+    --mint2:      #D4F0DF;
+    --lavender:   #C8C0E8;
+    --lavender2:  #E0DAFA;
+    --blush:      #F0B8C8;
+    --blush2:     #FAD8E4;
+    --lilac:      #D8B8E8;
+    --lilac2:     #EED8FA;
+    --yellow:     #FFD84D;
+    --yellow2:    #FFF0A0;
+    --sky:        #B8D8F0;
+    --white:      #FFFFFF;
+    --text:       #1a3040;
+    --text2:      #3a6278;
+    --green:      #3aaa66;
+    --pink:       #E8607A;
+    --cream:      #f7fafb;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:'Nunito',sans-serif;
+    background: var(--teal-dark);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+  h1,h2,h3,h4,.logo-text { font-family:'Fredoka One',cursive; }
+
+  /* ─── BACKGROUND PATTERN ─── */
+  body::before {
+    content:'';
+    position:fixed; top:0; left:0; right:0; bottom:0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(42,159,199,0.18) 0%, transparent 45%),
+      radial-gradient(circle at 85% 60%, rgba(29,120,170,0.14) 0%, transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(13,85,112,0.25) 0%, transparent 50%);
+    pointer-events:none; z-index:0;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position:fixed; top:0; width:100%; z-index:200;
+    background: rgba(7,61,82,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 3px solid rgba(42,159,199,0.4);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 2.5rem; height:70px;
+  }
+  .logo { display:flex; align-items:center; gap:0.6rem; text-decoration:none; }
+  .logo-paw { font-size:2rem; }
+  .logo-text { font-size:1.5rem; color:white; line-height:1; }
+  .logo-text span { color:var(--yellow); }
+  .nav-links { display:flex; align-items:center; gap:1.5rem; list-style:none; }
+  .nav-links a { text-decoration:none; color:rgba(255,255,255,0.8); font-weight:800; font-size:0.9rem; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--yellow); }
+  .nav-btn {
+    background:var(--yellow); color:var(--text)!important;
+    padding:0.5rem 1.4rem; border-radius:50px;
+    box-shadow:0 4px 0 #b8900a;
+    transition:transform 0.15s, box-shadow 0.15s!important;
+  }
+  .nav-btn:hover { transform:translateY(-2px)!important; box-shadow:0 6px 0 #b8900a!important; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #052e40 0%, #073d52 40%, #0d5570 70%, #0f6a8a 100%);
+    display:flex; align-items:center;
+    padding:90px 3rem 3rem;
+    position:relative; overflow:hidden;
+  }
+  /* Animated bubbles in hero */
+  .bubble {
+    position:absolute; border-radius:50%;
+    background: rgba(42,159,199,0.12);
+    border: 1px solid rgba(42,159,199,0.2);
+    animation: floatUp 12s ease-in-out infinite;
+  }
+  .b1{width:80px;height:80px;left:8%;bottom:10%;animation-delay:0s;}
+  .b2{width:50px;height:50px;left:22%;bottom:30%;animation-delay:2s;}
+  .b3{width:110px;height:110px;right:30%;bottom:5%;animation-delay:4s;}
+  .b4{width:40px;height:40px;right:18%;bottom:40%;animation-delay:1.5s;}
+  .b5{width:70px;height:70px;right:8%;bottom:20%;animation-delay:3s;}
+  @keyframes floatUp { 0%,100%{transform:translateY(0) scale(1);opacity:0.6} 50%{transform:translateY(-30px) scale(1.05);opacity:1} }
+
+  .hero-content { max-width:580px; position:relative; z-index:2; }
+  .hero-tag {
+    display:inline-flex; align-items:center; gap:0.5rem;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.25);
+    color:white; font-weight:800; font-size:0.85rem;
+    padding:0.45rem 1.2rem; border-radius:50px;
+    margin-bottom:1.5rem; letter-spacing:0.04em;
+  }
+  .hero h1 { font-size:clamp(3rem,7vw,5.5rem); line-height:1.05; margin-bottom:1.2rem; color:white; }
+  .hero h1 .accent { color:var(--yellow); }
+  .hero h1 .accent2 { color:var(--mint); }
+  .hero-sub {
+    font-size:1.15rem; color:rgba(255,255,255,0.82);
+    line-height:1.75; margin-bottom:2rem; max-width:480px; font-weight:600;
+  }
+  .hero-sub em { color:var(--yellow); font-style:normal; font-weight:900; }
+  .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
+
+  /* Buttons */
+  .btn { display:inline-block; text-decoration:none; font-family:'Nunito',sans-serif; font-weight:800; font-size:1rem; padding:0.9rem 2rem; border-radius:50px; border:none; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; }
+  .btn:hover { transform:translateY(-3px); }
+  .btn-yellow { background:var(--yellow); color:var(--text); box-shadow:0 5px 0 #b8900a; }
+  .btn-yellow:hover { box-shadow:0 8px 0 #b8900a; }
+  .btn-ghost { background:rgba(255,255,255,0.15); color:white; border:2px solid rgba(255,255,255,0.4); box-shadow:none; }
+  .btn-ghost:hover { background:rgba(255,255,255,0.25); }
+  .btn-pink { background:var(--pink); color:white; box-shadow:0 5px 0 #b83050; }
+  .btn-pink:hover { box-shadow:0 8px 0 #b83050; }
+  .btn-white { background:white; color:var(--text); box-shadow:0 5px 0 #c0d8e8; }
+  .btn-white:hover { box-shadow:0 8px 0 #c0d8e8; }
+
+  /* Hero animal cards */
+  .hero-illo { position:absolute; right:-1rem; bottom:0; width:50%; max-width:640px; z-index:1; display:flex; flex-direction:column; align-items:center; padding-bottom:1rem; }
+  .hero-animals-row { display:flex; gap:1.2rem; align-items:flex-end; flex-wrap:wrap; justify-content:center; }
+  .ha {
+    background:white; border-radius:28px; padding:1.4rem 1.2rem 1rem;
+    text-align:center; box-shadow:0 12px 40px rgba(0,0,0,0.3);
+    animation:bobble 2.8s ease-in-out infinite; min-width:120px;
+  }
+  .ha:nth-child(2){animation-delay:0.5s;}
+  .ha:nth-child(3){animation-delay:1s;}
+  .ha:nth-child(4){animation-delay:1.5s;}
+  .ha-emoji { font-size:3.5rem; display:block; margin-bottom:0.5rem; }
+  .ha-name { font-family:'Fredoka One',cursive; font-size:1rem; color:var(--text2); }
+  @keyframes bobble { 0%,100%{transform:translateY(0) rotate(-1deg);} 50%{transform:translateY(-10px) rotate(1deg);} }
+
+  /* INFO BAR */
+  .info-bar {
+    background: rgba(5,46,64,0.95);
+    border-top: 2px solid rgba(42,159,199,0.3);
+    border-bottom: 2px solid rgba(42,159,199,0.3);
+    display:flex; justify-content:center; gap:3rem; padding:1rem 2rem; flex-wrap:wrap;
+    position:relative; z-index:1;
+  }
+  .info-bar-item { display:flex; align-items:center; gap:0.5rem; color:rgba(255,255,255,0.85); font-weight:700; font-size:0.92rem; }
+  .info-bar-item strong { color:var(--yellow); }
+
+  /* ─── SECTION BASE ─── */
+  .section { padding:5rem 2rem; position:relative; z-index:1; }
+  .container { max-width:1200px; margin:0 auto; }
+  .section-head { text-align:center; margin-bottom:3.5rem; }
+  .pill { display:inline-block; font-weight:800; font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.35rem 1.1rem; border-radius:50px; margin-bottom:0.9rem; }
+  .pill-mint    { background:var(--mint); color:#2a7a4a; }
+  .pill-blush   { background:var(--blush); color:#a02040; }
+  .pill-lav     { background:var(--lavender); color:#4a3a8a; }
+  .pill-yellow  { background:var(--yellow); color:#7a5a00; }
+  .pill-sky     { background:var(--sky); color:#1a5a8a; }
+  .section-head h2 { font-size:clamp(2rem,5vw,3.2rem); line-height:1.1; margin-bottom:0.7rem; color:white; }
+  .section-head p  { font-size:1.05rem; color:rgba(255,255,255,0.7); max-width:560px; margin:0 auto; line-height:1.75; font-weight:600; }
+
+  /* ─── WHITE CARD SECTION (like mood board cards on teal) ─── */
+  .section-white {
+    background: white;
+    border-radius: 40px;
+    margin: 0 1.5rem 3rem;
+    padding: 4rem 3rem;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.25);
+    position: relative; z-index: 1;
+  }
+  .section-white .section-head h2 { color: var(--text); }
+  .section-white .section-head p  { color: var(--text2); }
+
+  /* ─── ANIMALS GRID ─── */
+  .animals-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.8rem; }
+  .animal-card {
+    background:white; border-radius:28px; overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,0.25);
+    border:3px solid var(--mint);
+    transition:transform 0.3s, box-shadow 0.3s;
+  }
+  .animal-card:hover { transform:translateY(-8px); box-shadow:0 20px 50px rgba(0,0,0,0.3); }
+  .animal-card:nth-child(2){border-color:var(--blush);}
+  .animal-card:nth-child(3){border-color:var(--lavender);}
+  .animal-card:nth-child(4){border-color:var(--yellow);}
+  .animal-card:nth-child(5){border-color:var(--sky);}
+  .animal-card:nth-child(6){border-color:var(--lilac);}
+  .ac-header { height:200px; display:flex; align-items:center; justify-content:center; position:relative; font-size:6rem; }
+  .c1{background:linear-gradient(135deg,#d4f0df,#b8e8c8);}
+  .c2{background:linear-gradient(135deg,#fad8e4,#f0b8c8);}
+  .c3{background:linear-gradient(135deg,#e0dafa,#c8c0e8);}
+  .c4{background:linear-gradient(135deg,#fff0a0,#ffd84d);}
+  .c5{background:linear-gradient(135deg,#dcf0fa,#b8d8f0);}
+  .c6{background:linear-gradient(135deg,#eed8fa,#d8b8e8);}
+  .rescued-tag { position:absolute; top:14px; right:14px; background:var(--pink); color:white; font-weight:800; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; padding:0.3rem 0.8rem; border-radius:50px; }
+  .ac-body { padding:1.5rem; }
+  .ac-body h3 { font-size:1.4rem; margin-bottom:0.3rem; color:var(--text); }
+  .ac-type { display:inline-block; background:var(--mint2); color:var(--green); font-weight:800; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.07em; padding:0.2rem 0.8rem; border-radius:50px; margin-bottom:0.9rem; }
+  .animal-card:nth-child(2) .ac-type{ background:var(--blush2); color:var(--pink); }
+  .animal-card:nth-child(3) .ac-type{ background:var(--lavender2); color:#5a3a9a; }
+  .animal-card:nth-child(4) .ac-type{ background:var(--yellow2); color:#8a6a00; }
+  .animal-card:nth-child(5) .ac-type{ background:var(--sky); color:#1a5a8a; }
+  .animal-card:nth-child(6) .ac-type{ background:var(--lilac2); color:#6a3a9a; }
+  .ac-body p { font-size:0.9rem; color:var(--text2); line-height:1.7; font-weight:600; }
+  .ac-story { margin-top:1rem; padding-top:1rem; border-top:2px dashed var(--mint); font-size:0.83rem; color:var(--pink); font-weight:800; }
+  .ac-story::before { content:'💛 Fun Fact: '; }
+
+  /* ─── PETTING ZOO ─── */
+  .zoo-layout { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; }
+  .zoo-mosaic { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .zoo-tile {
+    border-radius:24px; display:flex; align-items:center; justify-content:center;
+    font-size:4rem; min-height:160px;
+    box-shadow:0 8px 28px rgba(0,0,0,0.2);
+    transition:transform 0.3s; cursor:pointer; position:relative; overflow:hidden;
+  }
+  .zoo-tile:hover{transform:scale(1.04);}
+  .zoo-tile.big{grid-column:span 2; font-size:5rem; min-height:200px;}
+  .zt1{background:linear-gradient(135deg,var(--mint),var(--sky));}
+  .zt2{background:linear-gradient(135deg,var(--blush),var(--lilac));}
+  .zt3{background:linear-gradient(135deg,var(--yellow),var(--mint));}
+  .zt4{background:linear-gradient(135deg,var(--lavender),var(--blush));}
+  .zoo-tile-label { position:absolute; bottom:0; left:0; right:0; background:rgba(7,61,82,0.85); color:white; padding:0.6rem; text-align:center; font-weight:800; font-size:0.82rem; transform:translateY(100%); transition:transform 0.3s; }
+  .zoo-tile:hover .zoo-tile-label{transform:translateY(0);}
+
+  /* Zoo text area on white card */
+  .zoo-text .section-head { text-align:left; }
+  .zoo-text .section-head h2 { color:var(--text); }
+  .zoo-text .section-head p { color:var(--text2); margin:0 0 1.5rem; }
+  .zoo-features { display:flex; flex-direction:column; gap:0.9rem; }
+  .zoo-feat { display:flex; gap:1rem; align-items:flex-start; background:var(--cream); border-radius:16px; padding:1.1rem; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
+  .zoo-feat-icon { font-size:1.6rem; width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .zoo-feat h5 { font-weight:800; font-size:0.92rem; margin-bottom:0.2rem; color:var(--text); }
+  .zoo-feat p { font-size:0.83rem; color:var(--text2); line-height:1.5; font-weight:600; }
+
+  /* ─── COLOUR PALETTE STRIP (mood board style) ─── */
+  .palette-strip {
+    display:flex; border-radius:20px; overflow:hidden;
+    height:60px; box-shadow:0 6px 20px rgba(0,0,0,0.2);
+    margin-bottom:2rem;
+  }
+  .ps { flex:1; }
+  .ps1{background:var(--mint);}
+  .ps2{background:var(--lavender);}
+  .ps3{background:var(--blush);}
+  .ps4{background:var(--lilac);}
+  .ps5{background:var(--sky);}
+
+  /* ─── ADOPT ─── */
+  .adopt-banner {
+    background:linear-gradient(135deg, var(--pink), #c04060);
+    border-radius:28px; padding:2.5rem 3rem; margin-bottom:3rem;
+    position:relative; overflow:hidden;
+    box-shadow:0 12px 40px rgba(232,96,122,0.3);
+  }
+  .adopt-banner::after { content:'🐶🐾'; position:absolute; right:2rem; top:50%; transform:translateY(-50%); font-size:5rem; opacity:0.2; }
+  .adopt-banner h2 { font-size:2.2rem; color:white; margin-bottom:0.5rem; }
+  .adopt-banner p  { color:rgba(255,255,255,0.92); font-weight:600; font-size:1rem; line-height:1.6; max-width:500px; }
+  .adopt-steps-row { display:flex; gap:1rem; margin-top:1.5rem; flex-wrap:wrap; }
+  .adopt-step { background:rgba(255,255,255,0.25); border-radius:14px; padding:0.8rem 1.2rem; display:flex; align-items:center; gap:0.6rem; }
+  .adopt-step-num { background:white; color:var(--pink); width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:0.85rem; flex-shrink:0; }
+  .adopt-step span { color:white; font-weight:800; font-size:0.85rem; }
+  .pups-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1.8rem; }
+  .pup-card {
+    background:white; border-radius:24px; overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,0.25);
+    border:3px solid var(--blush);
+    transition:transform 0.3s, box-shadow 0.3s;
+  }
+  .pup-card:hover{transform:translateY(-6px); box-shadow:0 18px 45px rgba(232,96,122,0.25);}
+  .pup-img { height:190px; display:flex; align-items:center; justify-content:center; font-size:5.5rem; position:relative; }
+  .pi1{background:linear-gradient(135deg,#fad8e4,#f0b8c8);}
+  .pi2{background:linear-gradient(135deg,#dcf0fa,#b8d8f0);}
+  .pi3{background:linear-gradient(135deg,#fff0a0,#ffd84d);}
+  .pi4{background:linear-gradient(135deg,#eed8fa,#d8b8e8);}
+  .pup-badge { position:absolute; top:12px; left:12px; font-size:0.68rem; font-weight:900; padding:0.28rem 0.8rem; border-radius:50px; text-transform:uppercase; letter-spacing:0.07em; }
+  .badge-avail{background:#b8e8c8;color:#2a7a4a;}
+  .badge-pend{background:var(--yellow);color:#7a5a00;}
+  .pup-body { padding:1.3rem; }
+  .pup-body h3 { font-size:1.3rem; margin-bottom:0.4rem; color:var(--text); }
+  .pup-tags { display:flex; gap:0.4rem; flex-wrap:wrap; margin-bottom:0.8rem; }
+  .pup-tags span { background:var(--lavender2); color:#4a3a8a; font-size:0.72rem; font-weight:800; padding:0.2rem 0.65rem; border-radius:50px; }
+  .pup-body p { font-size:0.87rem; color:var(--text2); line-height:1.65; font-weight:600; margin-bottom:1rem; }
+  .pup-btn { width:100%; padding:0.7rem; background:var(--pink); color:white; border:none; border-radius:14px; font-family:'Nunito',sans-serif; font-weight:900; font-size:0.92rem; cursor:pointer; box-shadow:0 4px 0 #b83050; transition:transform 0.2s, box-shadow 0.2s; }
+  .pup-btn:hover{transform:translateY(-2px); box-shadow:0 6px 0 #b83050;}
+
+  /* ─── TESTIMONIALS ─── */
+  .testi-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.8rem; }
+  .testi-card {
+    background:white; border-radius:24px; padding:1.8rem;
+    box-shadow:0 8px 30px rgba(0,0,0,0.2); position:relative;
+  }
+  .testi-card::before { content:'"'; font-family:'Fredoka One',cursive; font-size:5rem; color:var(--blush); position:absolute; top:-0.5rem; left:1.2rem; line-height:1; }
+  .testi-stars { color:var(--yellow); font-size:1.2rem; margin-bottom:0.8rem; margin-top:1.8rem; }
+  .testi-text { font-size:0.93rem; color:var(--text2); line-height:1.75; font-weight:600; margin-bottom:1.2rem; font-style:italic; }
+  .testi-author { display:flex; align-items:center; gap:0.8rem; }
+  .testi-av { width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+  .testi-name { font-weight:900; font-size:0.95rem; color:var(--text); }
+  .testi-from { font-size:0.78rem; color:var(--text2); font-weight:600; }
+
+  /* ─── BLOG ─── */
+  .blog-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:2rem; }
+  .blog-card {
+    background:white; border-radius:24px; overflow:hidden;
+    box-shadow:0 8px 28px rgba(0,0,0,0.2);
+    border:3px solid var(--lavender2);
+    transition:transform 0.3s, box-shadow 0.3s;
+  }
+  .blog-card:hover{transform:translateY(-5px); box-shadow:0 18px 40px rgba(0,0,0,0.25);}
+  .blog-thumb { height:190px; display:flex; align-items:center; justify-content:center; font-size:5rem; }
+  .bt1{background:linear-gradient(135deg,var(--mint),var(--sky));}
+  .bt2{background:linear-gradient(135deg,var(--blush),var(--lilac));}
+  .bt3{background:linear-gradient(135deg,var(--yellow),var(--mint));}
+  .blog-body { padding:1.5rem; }
+  .blog-cat { font-weight:900; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.09em; color:var(--pink); margin-bottom:0.5rem; }
+  .blog-body h3 { font-size:1.2rem; margin-bottom:0.6rem; line-height:1.35; color:var(--text); }
+  .blog-body p { font-size:0.87rem; color:var(--text2); line-height:1.65; font-weight:600; margin-bottom:1rem; }
+  .blog-footer { display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; color:var(--text2); font-weight:700; }
+  .read-link { color:var(--green); text-decoration:none; font-weight:900; }
+  .read-link:hover { text-decoration:underline; }
+
+  /* ─── CONTACT ─── */
+  .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; align-items:start; }
+  .contact-box {
+    background:white; border-radius:24px; padding:2rem;
+    box-shadow:0 8px 30px rgba(0,0,0,0.2); margin-bottom:1.5rem;
+  }
+  .contact-box h3 { font-size:1.5rem; margin-bottom:1.4rem; color:var(--text); }
+  .ci { display:flex; gap:1rem; align-items:flex-start; margin-bottom:1.2rem; }
+  .ci-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; background:var(--mint2); }
+  .ci h5 { font-weight:900; font-size:0.85rem; margin-bottom:0.2rem; color:var(--text); }
+  .ci p, .ci a { font-size:0.9rem; color:var(--text2); font-weight:600; line-height:1.5; text-decoration:none; }
+  .ci a:hover { color:var(--pink); }
+  .hours-table { border-collapse:collapse; font-size:0.85rem; color:var(--text2); font-weight:600; }
+  .hours-table td { padding:0.2rem 0.8rem 0.2rem 0; }
+  .hours-table td:first-child { font-weight:800; color:var(--text); }
+  .contact-form { display:flex; flex-direction:column; gap:1rem; }
+  .contact-form input, .contact-form textarea {
+    width:100%; padding:0.85rem 1.1rem; border:2px solid var(--lavender2);
+    border-radius:14px; font-family:'Nunito',sans-serif; font-size:0.95rem; font-weight:600;
+    color:var(--text); background:var(--cream); outline:none; transition:border-color 0.2s;
+  }
+  .contact-form input:focus, .contact-form textarea:focus { border-color:var(--teal-glow); }
+  .contact-form textarea { min-height:120px; resize:vertical; }
+  .map-box {
+    background: linear-gradient(135deg, var(--teal-mid), var(--teal-light));
+    border-radius:24px; padding:2.5rem;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; min-height:260px; margin-bottom:1.5rem;
+    box-shadow:0 8px 30px rgba(0,0,0,0.2);
+  }
+  .map-pin { font-size:3rem; margin-bottom:0.8rem; animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+  .map-box h4 { font-size:1.4rem; color:white; margin-bottom:0.3rem; }
+  .map-box small { color:rgba(255,255,255,0.7); font-weight:600; font-size:0.9rem; display:block; margin-bottom:1.2rem; }
+  .directions-box {
+    background:white; border-radius:24px; padding:1.8rem;
+    box-shadow:0 8px 28px rgba(0,0,0,0.2);
+  }
+  .directions-box h4 { font-size:1.3rem; margin-bottom:0.8rem; color:var(--text); }
+  .directions-box p { font-size:0.88rem; color:var(--text2); line-height:1.75; font-weight:600; }
+  .directions-box strong { color:var(--text); }
+
+  /* ─── SECTION LABEL DIVIDERS ─── */
+  .wave-divider {
+    width:100%; overflow:hidden; line-height:0;
+    position:relative; z-index:1;
+  }
+  .wave-divider svg { display:block; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: rgba(5,30,42,0.98);
+    border-top: 3px solid rgba(42,159,199,0.3);
+    padding:3rem 2rem 1.5rem; position:relative; z-index:1;
+  }
+  .footer-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; margin-bottom:2.5rem; }
+  .fb-brand h2 { font-size:1.9rem; color:white; margin-bottom:0.8rem; }
+  .fb-brand h2 span { color:var(--yellow); }
+  .fb-brand p { font-size:0.9rem; color:rgba(255,255,255,0.6); line-height:1.7; font-weight:600; margin-bottom:1.2rem; }
+  .socials { display:flex; gap:0.6rem; }
+  .socials a { width:38px; height:38px; border-radius:10px; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; font-size:1.1rem; text-decoration:none; transition:background 0.2s; }
+  .socials a:hover { background:rgba(255,255,255,0.22); }
+  .fc h4 { font-family:'Fredoka One',cursive; font-size:1.1rem; color:white; margin-bottom:1rem; }
+  .fc ul { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
+  .fc ul a { text-decoration:none; color:rgba(255,255,255,0.6); font-size:0.88rem; font-weight:600; transition:color 0.2s; }
+  .fc ul a:hover { color:var(--yellow); }
+  .footer-bottom { max-width:1200px; margin:0 auto; border-top:1px solid rgba(255,255,255,0.1); padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center; font-size:0.82rem; color:rgba(255,255,255,0.5); font-weight:600; flex-wrap:wrap; gap:1rem; }
+  .footer-bottom span { color:rgba(255,255,255,0.8); }
+  .footer-bottom a { color:rgba(255,255,255,0.5); text-decoration:none; }
+  .footer-bottom a:hover { color:var(--yellow); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width:900px) {
+    .hero-illo { display:none; }
+    .hero-content { max-width:100%; }
+    .zoo-layout { grid-template-columns:1fr; }
+    .contact-grid { grid-template-columns:1fr; }
+    .footer-grid { grid-template-columns:1fr 1fr; gap:2rem; }
+    .section-white { margin:0 0.5rem 2rem; padding:2.5rem 1.5rem; border-radius:28px; }
+  }
+  @media (max-width:640px) {
+    nav { padding:0 1rem; }
+    .nav-links { gap:0.8rem; }
+    .nav-links li:not(:last-child) { display:none; }
+    .section { padding:3rem 1rem; }
+    .footer-grid { grid-template-columns:1fr; gap:1.5rem; }
+    .hero { padding:90px 1.5rem 3rem; }
+  }
+
+  /* ─── SCROLL FADE IN ─── */
+  .fade-in { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">
+    <span class="logo-paw">🐾</span>
+    <span class="logo-text">Paws <span>&</span> Hooves</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#animals">Animals</a></li>
+    <li><a href="#petting">Petting Zoo</a></li>
+    <li><a href="#adopt">Adopt</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Visit</a></li>
+    <li><a href="#contact" class="nav-btn">Book Now 🎟️</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Floating bubbles -->
+  <div class="bubble b1"></div>
+  <div class="bubble b2"></div>
+  <div class="bubble b3"></div>
+  <div class="bubble b4"></div>
+  <div class="bubble b5"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">🌿 Cornwall's Favourite Rescue Farm</div>
+    <h1>Where Every<br><span class="accent">Animal</span> Has a<br><span class="accent2">Story</span></h1>
+    <p class="hero-sub">A magical Cornish farm where rescued animals find love — and families create <em>unforgettable</em> memories together.</p>
+    <div class="hero-btns">
+      <a href="#petting" class="btn btn-yellow">Plan Your Visit 🎟️</a>
+      <a href="#adopt" class="btn btn-ghost">Adopt a Pup ❤️</a>
+    </div>
+  </div>
+
+  <div class="hero-illo">
+    <div class="hero-animals-row">
+      <div class="ha"><span class="ha-emoji">🐐</span><span class="ha-name">Clover</span></div>
+      <div class="ha"><span class="ha-emoji">🐑</span><span class="ha-name">Wooly</span></div>
+      <div class="ha"><span class="ha-emoji">🐶</span><span class="ha-name">Biscuit</span></div>
+      <div class="ha"><span class="ha-emoji">🐇</span><span class="ha-name">Hazel</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO BAR -->
+<div class="info-bar">
+  <div class="info-bar-item">📍 <strong>Trevose Farm, Padstow</strong> Cornwall</div>
+  <div class="info-bar-item">🕘 Open <strong>Daily 10am–5pm</strong></div>
+  <div class="info-bar-item">🎫 Adults <strong>£12</strong> · Kids <strong>£8</strong> · Under 3s <strong>Free</strong></div>
+  <div class="info-bar-item">📞 <strong>01841 520 890</strong></div>
+</div>
+
+<!-- ─── ANIMALS SECTION ─── -->
+<section class="section" id="animals">
+  <div class="container">
+    <div class="section-head fade-in">
+      <div class="pill pill-mint">🐾 Meet the Residents</div>
+      <h2>Our Amazing Animals</h2>
+      <p>Every single one of our animals has been rescued, rehabilitated, and given a forever home here at the farm.</p>
+    </div>
+    <div class="animals-grid">
+      <div class="animal-card fade-in">
+        <div class="ac-header c1"><span>🐐</span><span class="rescued-tag">Rescued</span></div>
+        <div class="ac-body"><h3>Clover the Goat</h3><div class="ac-type">🐐 Pygmy Goat</div><p>Our cheekiest resident! Clover arrived as a tiny orphaned kid and has never quite recovered from the attention. She'll eat your map, your hat, and your heart.</p><div class="ac-story">Clover has escaped from her enclosure 47 times and counting!</div></div>
+      </div>
+      <div class="animal-card fade-in">
+        <div class="ac-header c2"><span>🐑</span><span class="rescued-tag">Rescued</span></div>
+        <div class="ac-body"><h3>Wooly & Pip</h3><div class="ac-type">🐑 Herdwick Sheep</div><p>Brothers rescued from a flooded farm in Devon, these two are inseparable. Wooly will literally follow you home if you let him — he's absolutely convinced he's a dog.</p><div class="ac-story">Wooly once got stuck in a child's buggy. Twice.</div></div>
+      </div>
+      <div class="animal-card fade-in">
+        <div class="ac-header c3"><span>🐇</span><span class="rescued-tag">Rescued</span></div>
+        <div class="ac-body"><h3>Hazel & Friends</h3><div class="ac-type">🐇 Lop-eared Rabbits</div><p>Our fluffy trio were discovered living in a hutch far too small. Now they have a whole meadow run to themselves and spend their days binkying with pure joy.</p><div class="ac-story">Hazel once ate a whole birthday cake left unattended.</div></div>
+      </div>
+      <div class="animal-card fade-in">
+        <div class="ac-header c4"><span>🐓</span><span class="rescued-tag">Rescued</span></div>
+        <div class="ac-body"><h3>Henrietta & the Hens</h3><div class="ac-type">🐓 Battery-Rescued Hens</div><p>30 battery-rescued hens who've never known grass. The day they stepped outside for the first time? Pure magic. They now rule the roost — literally.</p><div class="ac-story">Henrietta lays the most perfectly oval eggs in Cornwall.</div></div>
+      </div>
+      <div class="animal-card fade-in">
+        <div class="ac-header c5"><span>🦆</span></div>
+        <div class="ac-body"><h3>Dapper & Ducks</h3><div class="ac-type">🦆 Khaki Campbells</div><p>Found waddling along the A30 in heavy rain, this little flock has since become the farm's unofficial welcoming committee. They queue for morning bread like tiny commuters.</p><div class="ac-story">Dapper once photobombed a national press photo.</div></div>
+      </div>
+      <div class="animal-card fade-in">
+        <div class="ac-header c6"><span>🐷</span><span class="rescued-tag">Rescued</span></div>
+        <div class="ac-body"><h3>Mr Truffles</h3><div class="ac-type">🐷 Kune Kune Pig</div><p>The undisputed star of Paws & Hooves. Mr Truffles was surrendered when his owner moved abroad and has since become Cornwall's most beloved porcine celebrity.</p><div class="ac-story">Mr Truffles has 12,000 Instagram followers!</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PETTING ZOO ─── -->
+<div class="section-white fade-in" id="petting">
+  <div class="zoo-layout">
+    <div class="zoo-mosaic">
+      <div class="zoo-tile zt1 big"><span>🐑🤗👧</span><div class="zoo-tile-label">Children meeting the sheep in the meadow</div></div>
+      <div class="zoo-tile zt2"><span>🐇💕</span><div class="zoo-tile-label">Cuddle time with Hazel & friends</div></div>
+      <div class="zoo-tile zt3"><span>🐐🧢</span><div class="zoo-tile-label">Clover loves stealing hats!</div></div>
+      <div class="zoo-tile zt4"><span>🐓🥚</span><div class="zoo-tile-label">Collecting eggs with Henrietta</div></div>
+    </div>
+    <div class="zoo-text">
+      <div class="section-head" style="text-align:left;margin-bottom:2rem;">
+        <div class="pill pill-blush">📸 Petting Zoo</div>
+        <h2>Hands-On Farm Magic!</h2>
+        <p>Get up close with our gentle animals — hand-feed the goats, stroke the rabbits, collect eggs, and make memories that will last a lifetime.</p>
+      </div>
+      <div class="zoo-features">
+        <div class="zoo-feat"><div class="zoo-feat-icon" style="background:var(--mint2);">🌾</div><div><h5>Guided Farm Walks</h5><p>Daily guided tours at 11am & 2pm — learn each animal's rescue story first-hand.</p></div></div>
+        <div class="zoo-feat"><div class="zoo-feat-icon" style="background:var(--blush2);">🥕</div><div><h5>Animal Feeding Sessions</h5><p>Hand-feed the goats, sheep & rabbits with special farm feed bags (included in entry).</p></div></div>
+        <div class="zoo-feat"><div class="zoo-feat-icon" style="background:var(--lavender2);">🎓</div><div><h5>School & Group Visits</h5><p>Curriculum-linked educational workshops for schools. We love welcoming classes!</p></div></div>
+        <div class="zoo-feat"><div class="zoo-feat-icon" style="background:var(--yellow2);">🎂</div><div><h5>Birthday Parties</h5><p>Private farm parties with animal encounters, picnic space, and happy memories!</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── ADOPT ─── -->
+<section class="section" id="adopt">
+  <div class="container">
+    <div class="adopt-banner fade-in">
+      <div class="pill pill-blush" style="margin-bottom:0.8rem;">❤️ Adopt</div>
+      <h2>Give a Pup Their Forever Home</h2>
+      <p>Every pup in our care has known hardship. With your love, they can know a life of warmth and belonging. Our adoption process is thorough, caring, and completely transparent.</p>
+      <div class="adopt-steps-row">
+        <div class="adopt-step"><div class="adopt-step-num">1</div><span>Meet & Greet</span></div>
+        <div class="adopt-step"><div class="adopt-step-num">2</div><span>Home Check</span></div>
+        <div class="adopt-step"><div class="adopt-step-num">3</div><span>Adoption Agreement</span></div>
+        <div class="adopt-step"><div class="adopt-step-num">4</div><span>Welcome Home!</span></div>
+      </div>
+    </div>
+    <div class="section-head fade-in">
+      <h2>Pups Looking for Love 🐾</h2>
+      <p>These wonderful pups are waiting for their perfect family. Could that be yours?</p>
+    </div>
+    <div class="pups-grid">
+      <div class="pup-card fade-in">
+        <div class="pup-img pi1"><span>🐶</span><span class="pup-badge badge-avail">Available</span></div>
+        <div class="pup-body"><h3>Biscuit</h3><div class="pup-tags"><span>8 weeks</span><span>Male</span><span>Terrier Mix</span></div><p>A bold little biscuit-coloured pup with an enormous personality. Found abandoned in Bodmin — he's full of life, loves toys, and won't leave your lap!</p><button class="pup-btn">Enquire About Biscuit 🐾</button></div>
+      </div>
+      <div class="pup-card fade-in">
+        <div class="pup-img pi2"><span>🐕</span><span class="pup-badge badge-avail">Available</span></div>
+        <div class="pup-body"><h3>Misty</h3><div class="pup-tags"><span>5 months</span><span>Female</span><span>Collie Cross</span></div><p>Gentle, clever Misty was found roaming the coastal path. She adores children and other dogs, responds brilliantly to training, and loves a long walk.</p><button class="pup-btn">Enquire About Misty 🐾</button></div>
+      </div>
+      <div class="pup-card fade-in">
+        <div class="pup-img pi3"><span>🦮</span><span class="pup-badge badge-pend">Pending</span></div>
+        <div class="pup-body"><h3>Toby</h3><div class="pup-tags"><span>3 months</span><span>Male</span><span>Labrador Mix</span></div><p>Golden boy Toby is the most laid-back pup we've ever met. He adores belly rubs, napping in sunbeams, and stealing socks. Enquiries welcome!</p><button class="pup-btn" style="background:var(--text2);box-shadow:0 4px 0 #2a2040;">Join Waiting List 🐾</button></div>
+      </div>
+      <div class="pup-card fade-in">
+        <div class="pup-img pi4"><span>🐩</span><span class="pup-badge badge-avail">Available</span></div>
+        <div class="pup-body"><h3>Penny</h3><div class="pup-tags"><span>10 weeks</span><span>Female</span><span>Spaniel Mix</span></div><p>Penny has the biggest eyes you've ever seen and knows exactly how to use them! Surrendered by an overwhelmed family, she's blossomed into a confident little star.</p><button class="pup-btn">Enquire About Penny 🐾</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<div class="section-white fade-in" id="testimonials">
+  <div class="section-head" style="margin-bottom:2.5rem;">
+    <div class="pill pill-yellow">⭐ Visitor Reviews</div>
+    <h2 style="color:var(--text);">What Families Say!</h2>
+    <p style="color:var(--text2);">Don't just take our word for it — here's what families and animal-lovers have shared about their Paws & Hooves adventure.</p>
+  </div>
+
+  <!-- Colour palette strip (from mood board) -->
+  <div class="palette-strip" style="max-width:400px;margin:0 auto 2.5rem;">
+    <div class="ps ps1"></div>
+    <div class="ps ps2"></div>
+    <div class="ps ps3"></div>
+    <div class="ps ps4"></div>
+    <div class="ps ps5"></div>
+  </div>
+
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"We visited for my daughter's 6th birthday and honestly, the adults had just as much fun as the kids! The goats are hysterical and the staff are so warm and knowledgeable. We'll be back every summer!"</p>
+      <div class="testi-author"><div class="testi-av" style="background:var(--mint2);">👩</div><div><div class="testi-name">Sarah M.</div><div class="testi-from">Truro, Cornwall</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"We adopted Biscuit two months ago and he's completely changed our lives. The team were so thorough and supportive. He is the best thing that has ever happened to our family!"</p>
+      <div class="testi-author"><div class="testi-av" style="background:var(--blush2);">👨</div><div><div class="testi-name">David & Rachel T.</div><div class="testi-from">Penzance, Cornwall</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"I brought my Year 3 class here and it was the best school trip I've ever organised in 15 years of teaching. The children were captivated and still talk about the rescued hens six months later!"</p>
+      <div class="testi-author"><div class="testi-av" style="background:var(--lavender2);">👩‍🏫</div><div><div class="testi-name">Miss Emily Bowen</div><div class="testi-from">Primary Teacher, Newquay</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"My son is autistic and can find busy places overwhelming, but Paws & Hooves was absolutely perfect — calm, unhurried, so patient. He fed a rabbit entirely on his own for the first time. I cried happy tears."</p>
+      <div class="testi-author"><div class="testi-av" style="background:var(--yellow2);">👩</div><div><div class="testi-name">Claire H.</div><div class="testi-from">St Austell, Cornwall</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"One of the most heart-warming places I've ever visited. Knowing every animal has been rescued makes it so meaningful. Mr Truffles is an absolute icon. We drove 3 hours and would do it again tomorrow!"</p>
+      <div class="testi-author"><div class="testi-av" style="background:var(--sky);">👨‍👩‍👧</div><div><div class="testi-name">The Harrington Family</div><div class="testi-from">Bristol, visiting Cornwall</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The guided farm walk was brilliant — we learned so much about animal welfare and our kids were completely captivated. They now both want to be vets. The goat-feeding session was absolutely side-splitting!"</p>
+      <div class="testi-author"><div class="testi-av" style="background:var(--lilac2);">👨</div><div><div class="testi-name">Tom W.</div><div class="testi-from">London, summer visitor</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── BLOG ─── -->
+<section class="section" id="blog">
+  <div class="container">
+    <div class="section-head fade-in">
+      <div class="pill pill-lav">📖 Farm Blog</div>
+      <h2>Tales from the Farm</h2>
+      <p>Updates on farm life, rescue stories, animal care tips, and the occasional ear-to-ear grin from Mr Truffles.</p>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card fade-in">
+        <div class="blog-thumb bt1">🐣</div>
+        <div class="blog-body">
+          <div class="blog-cat">Rescue Story</div>
+          <h3>30 Hens, One Farm, and the Day We Changed Everything</h3>
+          <p>The morning our battery-rescued hens took their first steps on grass is one we'll never forget. Here's the full story of their remarkable transformation...</p>
+          <div class="blog-footer"><span>12 May 2026</span><a href="#" class="read-link">Read More →</a></div>
+        </div>
+      </div>
+      <div class="blog-card fade-in">
+        <div class="blog-thumb bt2">🐶</div>
+        <div class="blog-body">
+          <div class="blog-cat">Adoption Update</div>
+          <h3>Bramble's Pups: Six Months On</h3>
+          <p>Remember Bramble, the pregnant dog found on the Tintagel cliffs? Her seven pups have all now found loving homes. We caught up with three of the happy families...</p>
+          <div class="blog-footer"><span>28 April 2026</span><a href="#" class="read-link">Read More →</a></div>
+        </div>
+      </div>
+      <div class="blog-card fade-in">
+        <div class="blog-thumb bt3">🌿</div>
+        <div class="blog-body">
+          <div class="blog-cat">Farm Life</div>
+          <h3>Spring at Paws & Hooves: Lambing Season Begins!</h3>
+          <p>The meadow is alive with tiny legs and enormous amounts of fluff! Here's your guide to what to expect on a spring visit and why lambing season is extra magical this year...</p>
+          <div class="blog-footer"><span>3 April 2026</span><a href="#" class="read-link">Read More →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-head fade-in">
+      <div class="pill pill-sky">📍 Find Us</div>
+      <h2>Come Visit Us!</h2>
+      <p>We'd love to hear from you — whether you're planning a visit, arranging a school trip, or enquiring about adoption.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-box fade-in">
+          <h3>📬 Get in Touch</h3>
+          <div class="ci"><div class="ci-icon">📍</div><div><h5>Address</h5><p>Trevose Farm, Trevose Head Road<br>Padstow, Cornwall, PL28 8SH</p></div></div>
+          <div class="ci"><div class="ci-icon" style="background:var(--blush2);">📞</div><div><h5>Phone</h5><a href="tel:+441841520890">01841 520 890</a></div></div>
+          <div class="ci"><div class="ci-icon" style="background:var(--lavender2);">✉️</div><div><h5>Email</h5><a href="mailto:hello@pawsandhooves.co.uk">hello@pawsandhooves.co.uk</a></div></div>
+          <div class="ci"><div class="ci-icon" style="background:var(--yellow2);">🕘</div><div><h5>Opening Hours</h5>
+            <table class="hours-table">
+              <tr><td>Mon – Fri</td><td>10:00am – 5:00pm</td></tr>
+              <tr><td>Saturday</td><td>9:30am – 5:30pm</td></tr>
+              <tr><td>Sunday</td><td>10:00am – 4:30pm</td></tr>
+              <tr><td>Bank Holidays</td><td>10:00am – 4:00pm</td></tr>
+            </table>
+          </div></div>
+        </div>
+        <div class="contact-box fade-in">
+          <h3>💬 Send Us a Message</h3>
+          <form class="contact-form" onsubmit="return false;">
+            <input type="text" placeholder="Your name" />
+            <input type="email" placeholder="Email address" />
+            <textarea placeholder="Your message — visit planning, school trip, adoption enquiry..."></textarea>
+            <button type="submit" class="btn btn-pink" style="border-radius:14px;">Send Message 🐾</button>
+          </form>
+        </div>
+      </div>
+      <div>
+        <div class="map-box fade-in">
+          <div class="map-pin">📍</div>
+          <h4>Trevose Farm, Padstow</h4>
+          <small>Cornwall, PL28 8SH</small>
+          <a href="https://maps.google.com/?q=Padstow+Cornwall" target="_blank" class="btn btn-white" style="border-radius:12px;padding:0.6rem 1.4rem;font-size:0.88rem;">Open in Google Maps →</a>
+        </div>
+        <div class="directions-box fade-in">
+          <h4>🚗 Getting Here</h4>
+          <p><strong>By car:</strong> 4 miles north of Padstow on the B3276. Free parking for 80 vehicles.<br><br><strong>By bus:</strong> Western Greyhound Route 56 stops at Trevose Head (10 min walk).<br><br><strong>Cycling:</strong> The Camel Trail brings you within 2 miles. Bike parking available.<br><br><strong>Accessibility:</strong> Fully wheelchair accessible paths and facilities throughout.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="fb-brand">
+      <h2>🐾 Paws <span>&</span> Hooves</h2>
+      <p>A Cornish rescue farm where every animal has a story and every visitor leaves with a smile. Caring for our animals and community since 2018.</p>
+      <div class="socials"><a href="#">📘</a><a href="#">📸</a><a href="#">🎵</a><a href="#">📺</a></div>
+    </div>
+    <div class="fc"><h4>Visit Us</h4><ul><li><a href="#petting">Petting Zoo</a></li><li><a href="#animals">Our Animals</a></li><li><a href="#contact">Opening Hours</a></li><li><a href="#">Ticket Prices</a></li><li><a href="#">Group Bookings</a></li></ul></div>
+    <div class="fc"><h4>Rescue & Adopt</h4><ul><li><a href="#adopt">Adopt a Pup</a></li><li><a href="#">Volunteer</a></li><li><a href="#">Donate</a></li><li><a href="#">Sponsor an Animal</a></li><li><a href="#">Surrender an Animal</a></li></ul></div>
+    <div class="fc"><h4>Learn More</h4><ul><li><a href="#blog">Farm Blog</a></li><li><a href="#">School Visits</a></li><li><a href="#">Birthday Parties</a></li><li><a href="#">Our Story</a></li><li><a href="#">Press Enquiries</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Paws & Hooves Petting Farm. Registered Charity No. <span>1189456</span></div>
+    <div><a href="#">Privacy Policy</a> · <a href="#">Terms & Conditions</a></div>
+  </div>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const faders = document.querySelectorAll('.fade-in');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  faders.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
